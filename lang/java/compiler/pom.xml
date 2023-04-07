@@ -73,21 +73,6 @@
             </manifestEntries>
           </archive>
         </configuration>
-        <executions>
-          <execution>
-            <id>prepare-test-jar</id>
-            <phase>generate-test-resources</phase>
-            <goals>
-              <goal>test-jar</goal>
-            </goals>
-            <configuration>
-              <classifier>test-resource</classifier>
-              <testClassesDirectory>src/test/idl/putOnClassPath</testClassesDirectory>
-              <finalName>putOnClassPath</finalName>
-              <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <!-- Avro generates a parser class with javacc. By default, this looks in src/main/javacc
         and outputs to target/generated-sources/javacc See http://mojo.codehaus.org/javacc-maven-plugin/javacc-mojo.html
@@ -118,69 +103,7 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>java</executable>
-              <workingDirectory>${java.io.tmpdir}</workingDirectory>
-              <classpathScope>test</classpathScope>
-              <arguments>
-                <argument>-classpath</argument>
-                <classpath/>
-                <argument>org.apache.avro.compiler.specific.SchemaTask</argument>
-                <argument>${project.basedir}/src/test/resources/full_record_v1.avsc</argument>
-                <argument>${project.basedir}/src/test/resources/full_record_v2.avsc</argument>
-                <argument>${project.basedir}/target/generated-test-sources/javacc</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <!--
-              Special-purpose maven plugins that generate code usually add the generated sources into the project.
-              But because the general-purpose exec plugin above generated code, we need to manually add the generated sources.
-            -->
-            <id>add-test-source</id>
-            <phase>generate-test-sources</phase>
-            <goals>
-              <goal>add-test-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.basedir}/target/generated-test-sources/javacc</source>
-              </sources>
-            </configuration>
-          </execution>
-          <execution>
-            <!--
-              Special-purpose maven plugins that generate code usually add the generated sources into the project.
-              But because the general-purpose exec plugin above generated code, we need to manually add the generated sources.
-            -->
-            <id>add-source</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-              <sources>
-                <source>${project.basedir}/target/generated-sources/javacc</source>
-              </sources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+
     </plugins>
     <pluginManagement>
       <plugins>
