@@ -30,4 +30,4 @@ jobs:
           
       # build and run tests 
       - name: Build and run tests
-        run: mvn clean package
+        run: mvn clean verify
