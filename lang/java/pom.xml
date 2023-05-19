@@ -158,10 +158,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
           <configuration>
-            <includes>
-              <!-- Avro naming convention for JUnit tests -->
-              <include>**/Test**</include>
-            </includes>
             <excludes>
               <!-- A few inner classes are not to be tested -->
               <exclude>**/*$*</exclude>
