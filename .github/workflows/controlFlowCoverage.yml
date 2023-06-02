@@ -45,5 +45,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: report-jacoco
-          path: jacoco-aggregator/target/site/jacoco-aggregate/
+          path: lang/java/jacoco-aggregator/target/site/jacoco-aggregate/
           if-no-files-found: error
