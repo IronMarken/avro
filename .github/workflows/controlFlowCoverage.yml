@@ -27,6 +27,14 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: maven
+
+      # sonar cache
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
           
       # maven cache
       - name: Cache Maven packages
@@ -35,15 +43,18 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-          
-      # build and run tests 
-      - name: Build and run tests
-        run: mvn clean verify -P Control-flow-Coverage
-        
+
+      # build, run tests and report on Sonar
+      - name: Build, run tests and report to Sonar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=IronMarken_avro -P Control-flow-Coverage
+
       # upload the report as artifact
       - name: Upload coverage results
         uses: actions/upload-artifact@v3
         with:
           name: report-jacoco
-          path: lang/java/jacoco-aggregator/target/site/jacoco-aggregate/
+          path: jacoco-aggregator/target/site/jacoco-aggregate/
           if-no-files-found: error

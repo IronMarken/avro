@@ -40,6 +40,12 @@
        Java artifacts are copied to the final build destination with a custom profile.
        -->
   <properties>
+    <!-- sonar coverage -->
+    <sonar.organization>ironmarken</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <!--jacoco coverage -->
+    <sonar.coverage.jacoco.xmlReportPaths>../../../jacoco-aggregator/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <main.basedir>${project.basedir}</main.basedir>
@@ -69,6 +75,9 @@
 
   <modules>
     <module>lang/java</module>
+
+    <!-- jacoco aggregator -->
+    <module>jacoco-aggregator</module>
   </modules>
 
   <scm>
@@ -258,6 +267,30 @@
   </build>
 
   <profiles>
+    <!-- Jacoco coverage profile -->
+    <profile>
+      <id>Control-flow-Coverage</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.8</version>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>dist</id>
       <!-- Profile for generating all maven artifacts and documentation. -->

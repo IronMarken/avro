@@ -5,7 +5,7 @@
 
   <parent>
     <groupId>org.apache.avro</groupId>
-    <artifactId>avro-parent</artifactId>
+    <artifactId>avro-toplevel</artifactId>
     <version>1.12.0-SNAPSHOT</version>
     <relativePath>../</relativePath>
   </parent>
@@ -13,8 +13,7 @@
   <artifactId>avro-jacoco-aggregator</artifactId>
 
   <name>Apache Avro Jacoco Coverage</name>
-  <description>Avro IDL based RPC and serialization over gRPC</description>
-  <packaging>bundle</packaging>
+  <description>Jacoco report aggregation</description>
 
   <properties>
     <main.basedir>${project.parent.parent.basedir}</main.basedir>
@@ -33,6 +32,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.8</version>
         <executions>
           <execution>
             <id>report</id>
