@@ -124,9 +124,12 @@
             <configuration>
               <targetClasses>
                 <param>org.apache.avro.generic.GenericDatumReader</param>
+                <param>org.apache.avro.generic.GenericDatumWriter</param>
+                <param>org.apache.avro.file.DataFileReader</param>
+                <param>org.apache.avro.file.DataFileWriter</param>
               </targetClasses>
               <targetTests>
-                <param>org.apache.avro.generic.MockitoGenericDatumReaderTest</param>
+                <param>org.apache.avro.file.FileSerializationTest</param>
               </targetTests>
               <avoidCallsTo>
                 <avoidCallsTo>org.slf4j</avoidCallsTo>
