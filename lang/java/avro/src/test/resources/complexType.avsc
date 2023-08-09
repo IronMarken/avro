@@ -1,0 +1,7 @@
+{"namespace": "test.avro",
+  "type": "record",
+  "name": "ComplexType",
+  "fields": [
+    {"name": "value", "type": "string"}
+  ]
+}

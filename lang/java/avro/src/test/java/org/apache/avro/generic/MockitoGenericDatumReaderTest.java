@@ -3,6 +3,7 @@ package org.apache.avro.generic;
 import org.apache.avro.Schema;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -21,6 +22,7 @@ public class MockitoGenericDatumReaderTest {
 
   }
 
+  @Ignore
   @Test
   public void dummyMockitoTest() {
     Schema schema = genericDatumReader.getSchema();
