@@ -1,0 +1,5 @@
+{"namespace": "test.avro",
+  "type": "fixed",
+  "name": "FixedType",
+  "size": 15
+}

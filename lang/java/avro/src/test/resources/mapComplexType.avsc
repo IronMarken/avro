@@ -1,0 +1,5 @@
+{"namespace": "test.avro",
+  "type": "map",
+  "name": "MapType",
+  "values": "string"
+}
