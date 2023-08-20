@@ -42,9 +42,16 @@ jobs:
         run: mvn clean verify -P Data-flow-Coverage
     
       # upload the report as artifact
-      - name: Upload coverage results
+      - name: Upload coverage avro module results
         uses: actions/upload-artifact@v3
         with:
           name: report-ba-dua-avro
           path: lang/java/avro/target/badua-report.xml
+          if-no-files-found: error
+
+      - name: Upload coverage ipc module results
+        uses: actions/upload-artifact@v3
+        with:
+          name: report-ba-dua-ipc
+          path: lang/java/ipc/target/badua-report.xml
           if-no-files-found: error

@@ -25,6 +25,11 @@
       <artifactId>avro</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>avro-ipc</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

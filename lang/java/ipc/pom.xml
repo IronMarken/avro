@@ -61,7 +61,7 @@
           <!-- some tests hang if not run in a separate JVM -->
           <forkCount>1</forkCount>
           <reuseForks>false</reuseForks>
-           <parallel>none</parallel>
+          <parallel>none</parallel>
         </configuration>
       </plugin>
       <plugin>
@@ -124,21 +124,21 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
     </dependency>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.velocity</groupId>
       <artifactId>velocity-engine-core</artifactId>
     </dependency>
     <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <scope>provided</scope>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <scope>provided</scope>
     </dependency>
     <!-- javax.annotation-api dependency must be explicit for forward compatibility (Java > 9) -->
     <dependency>
@@ -160,5 +160,100 @@
     </dependency>
 
   </dependencies>
+
+  <profiles>
+    <!-- mutation testing -->
+    <profile>
+      <id>Mutation-testing</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <withHistory>true</withHistory>
+        <pitest.version>1.14.0</pitest.version>
+        <pitest.history.file>${project.build.directory}/pitest.history</pitest.history.file>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-maven</artifactId>
+            <version>${pitest.version}</version>
+            <configuration>
+              <targetClasses>
+                <param>org.apache.avro.ipc.generic.GenericRequestor</param>
+                <param>org.apache.avro.ipc.generic.GenericResponder</param>
+                <param>org.apache.avro.ipc.Requestor</param>
+                <param>org.apache.avro.ipc.Responder</param>
+              </targetClasses>
+              <targetTests>
+                <param>org.apache.avro.ipc.generic.GenericRequestorTest</param>
+              </targetTests>
+              <avoidCallsTo>
+                <avoidCallsTo>org.slf4j</avoidCallsTo>
+              </avoidCallsTo>
+              <historyInputFile>${pitest.history.file}</historyInputFile>
+              <historyOutputFile>${pitest.history.file}</historyOutputFile>
+            </configuration>
+            <executions>
+              <execution>
+                <id>mutation</id>
+                <phase>test-compile</phase>
+                <goals>
+                  <goal>mutationCoverage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+
+    </profile>
+
+    <profile>
+      <id>Data-flow-Coverage</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <argLine>-javaagent:../../../ba-dua/ba-dua-agent-rt-0.6.0-all.jar -Doutput.file=target/badua.ser</argLine>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>ba-dua report</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>verify</phase>
+                <configuration>
+                  <workingDirectory>${project.basedir}</workingDirectory>
+                  <executable>java</executable>
+                  <arguments>
+                    <argument>-jar</argument>
+                    <argument>../../../ba-dua/ba-dua-cli-0.6.0-all.jar</argument>
+                    <argument>report</argument>
+                    <argument>-input</argument>
+                    <argument>${project.build.directory}/badua.ser</argument>
+                    <argument>-classes</argument>
+                    <argument>${project.build.directory}/classes</argument>
+                    <argument>-show-classes</argument>
+                    <argument>-show-methods</argument>
+                    <argument>-xml</argument>
+                    <argument>${project.build.directory}/badua-report.xml</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

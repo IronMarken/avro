@@ -42,9 +42,16 @@ jobs:
         run: mvn clean verify -P Mutation-testing
     
       # upload the report as artifact
-      - name: Upload results
+      - name: Upload avro module results
         uses: actions/upload-artifact@v3
         with:
           name: report-mutation-testing-avro
           path: lang/java/avro/target/pit-reports
+          if-no-files-found: error
+
+      - name: Upload ipc module results
+        uses: actions/upload-artifact@v3
+        with:
+          name: report-mutation-testing-avro
+          path: lang/java/ipc/target/pit-reports
           if-no-files-found: error

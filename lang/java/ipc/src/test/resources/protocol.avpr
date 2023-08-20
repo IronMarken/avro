@@ -1,0 +1,10 @@
+{"namespace": "test.proto",
+  "protocol": "TestProto",
+
+  "messages": {
+    "send": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": "string"
+    }
+  }
+}
