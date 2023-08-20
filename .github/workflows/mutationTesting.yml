@@ -52,6 +52,6 @@ jobs:
       - name: Upload ipc module results
         uses: actions/upload-artifact@v3
         with:
-          name: report-mutation-testing-avro
+          name: report-mutation-testing-ipc
           path: lang/java/ipc/target/pit-reports
           if-no-files-found: error
