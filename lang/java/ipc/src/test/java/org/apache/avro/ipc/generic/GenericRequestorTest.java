@@ -54,7 +54,7 @@ public class GenericRequestorTest {
   private final String FIELD_1_VALUE = "server_id";
   private final String FIELD_2_VALUE = "client_id";
   private final String HOST = "localhost";
-  private final int PORT = 1234;
+  private final int PORT = 3000;
   private final String REQ_NAME = "req";
   private String msgName;
   private String protoPath;
