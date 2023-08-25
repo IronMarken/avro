@@ -1,10 +1,40 @@
 {"namespace": "test.proto",
   "protocol": "TestProto",
 
+  "types": [
+    {"name": "Custom", "type": "record",
+      "fields": [
+        {"name": "to",   "type": "string"},
+        {"name": "from", "type": "string"}
+      ]
+    }
+  ],
+
   "messages": {
-    "send": {
+    "send_primitive": {
       "request": [{"name": "req", "type": "string"}],
-      "response": "string"
+      "response": "string",
+      "one-way": false
+    },
+    "send_error": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": "null",
+      "one-way": false
+    },
+    "send_complex": {
+      "request": [{"name": "req", "type": "Custom"}],
+      "response": "string",
+      "one-way": false
+    },
+    "send_one_way": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": "null",
+      "one-way": true
+    },
+    "send_callback": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": "null",
+      "one-way": false
     }
   }
 }
