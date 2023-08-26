@@ -1,0 +1,47 @@
+{"namespace": "test.proto",
+  "protocol": "SerializationProto",
+
+  "types": [
+    {"name": "CustomRecord", "type": "record",
+      "fields": [
+        {"name": "value",   "type": "string"}
+      ]
+    }
+  ],
+
+  "messages": {
+    "serialize_primitive": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": "string"
+    },
+    "serialize_record": {
+      "request": [{"name": "req", "type": "CustomRecord"}],
+      "response": "string"
+    },
+    "serialize_map": {
+      "request": [{"name": "req", "type": {"name": "value", "type":"map", "values": "string"}}],
+      "response": "string"
+    },
+    "serialize_array": {
+      "request": [{"name": "req", "type": {"name": "value", "type":"array", "items": "string"}}],
+      "response": "string"
+    },
+    "deserialize_primitive": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": "string"
+    },
+    "deserialize_record": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": {"type":  "CustomRecord"}
+    },
+    "deserialize_map": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": {"type": "map", "values": "string"}
+    },
+    "deserialize_array": {
+      "request": [{"name": "req", "type": "string"}],
+      "response": {"type": "array", "items": "string"}
+    }
+
+  }
+}

@@ -1,0 +1,10 @@
+{"namespace": "test.proto",
+  "protocol": "NotValidProto",
+
+  "messages": {
+    "send": {
+      "requests": "string" ,
+      "response": "string"
+    }
+  }
+}
