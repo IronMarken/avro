@@ -35,7 +35,7 @@ import static org.apache.avro.utils.Utils.InsertOptions.*;
 public class FileSerializationTest {
 
   private final String NOT_VALID_SCHEMA_PATH = "./src/test/resources/notValidSchema.avsc";
-  private final String NOT_EXISTING_SCHEMA_PATH = "./src/test/resources/notValidSchema.avsc";
+  private final String NOT_EXISTING_SCHEMA_PATH = "./src/test/resources/notExisting.avsc";
   private final String PRIMITIVE_SCHEMA_PATH = "./src/test/resources/primitiveType.avsc";
   private final String RECORD_SCHEMA_PATH = "./src/test/resources/recordComplexType.avsc";
   private final String MAP_SCHEMA_PATH = "./src/test/resources/mapComplexType.avsc";
